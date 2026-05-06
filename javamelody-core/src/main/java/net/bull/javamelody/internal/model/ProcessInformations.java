@@ -80,7 +80,12 @@ public final class ProcessInformations implements Serializable {
 			final String memory = sc.next();
 			cpuPercentage = -1;
 			memPercentage = -1;
-			vsz = Integer.parseInt(memory.replace(".", "").replace(",", "").replace("ÿ", ""));
+			if ("N/A".equals(memory)) {
+				vsz = -1;
+			} else {
+				vsz = Integer.parseInt(
+						memory.replace(".", "").replace(",", "").replace("ÿ", ""));
+			}
 			rss = -1;
 			tty = null;
 			stat = null;
