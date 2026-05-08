@@ -25,7 +25,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>17</java.version>
 
-		<!-- Adapt this to a version found on http://central.maven.org/maven2/net/bull/javamelody/javamelody-spring-boot-starter/ -->
+		<!-- Adapt this to a version found on https://repo1.maven.org/maven2/net/bull/javamelody/javamelody-spring-boot-starter/ -->
 		<javamelody.version>${project.version}</javamelody.version>
 	</properties>
 
