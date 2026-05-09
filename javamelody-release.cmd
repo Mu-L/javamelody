@@ -1,3 +1,4 @@
+:: read https://github.com/javamelody/javamelody/wiki/DevGuide#release-process
 @echo off
 setlocal
 
@@ -12,7 +13,7 @@ if not defined developmentVersion (
 	exit /B
 )
 if not defined java_home (
-	echo Variable java_home is not set. Use set java_home=C:\Program Files\Java\jdk1.8.0_112 for example
+	echo Variable java_home is not set. Use set java_home=C:\Program Files\Eclipse Adoptium\jdk-25.0.a+b-hotspot for example
 	exit /B
 )
 

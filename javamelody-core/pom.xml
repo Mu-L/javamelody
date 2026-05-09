@@ -338,6 +338,10 @@
 
 	<distributionManagement>
 		<repository>
+			<!-- deploy javamelody-core to https://repo.jenkins-ci.org/releases/ so that build don't fail in jenkins ci
+			and build is not displayed failed in https://plugins.jenkins.io/monitoring/ when releasing at the same time,
+			otherwise could be deployed to file:target/fake-repo since javamelody-core will be deployed anyway to
+			central by the release script and will be available in central about 1 hour later -->
 			<uniqueVersion>false</uniqueVersion>
 			<id>maven.jenkins-ci.org</id>
 			<url>https://repo.jenkins-ci.org/releases/</url>
@@ -345,7 +349,7 @@
 		<snapshotRepository>
 			<!-- prevent accidental deployment of SNAPSHOTS to repository -->
 			<id>snapshot</id>
-			<url>file:.</url>
+			<url>file:target/fake-repo</url>
 		</snapshotRepository>
 	</distributionManagement>
 
