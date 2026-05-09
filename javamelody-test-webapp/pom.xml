@@ -232,30 +232,4 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	<build>
-		<sourceDirectory>../javamelody-core/src/test/java</sourceDirectory>
-		<resources>
-			<resource>
-				<directory>../javamelody-core/src/test/resources</directory>
-			</resource>
-		</resources>
-
-		<plugins>
-			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>3.5.1</version>
-				<configuration>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
-					<webResources>
-						<resource>
-							<directory>../javamelody-core/src/test/test-webapp</directory>
-							<excludes>
-								<exclude>WEB-INF/classes/**</exclude>
-							</excludes>
-						</resource>
-					</webResources>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 </project>
