@@ -8,8 +8,8 @@ or see downloads in [Releases](../../releases), [Issues](../../issues) and [Pull
 
 License [Apache-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.bull.javamelody/javamelody-core/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.bull.javamelody/javamelody-core)
+[![Maven Central Version](https://img.shields.io/maven-central/v/net.bull.javamelody/javamelody-core)](https://central.sonatype.com/namespace/net.bull.javamelody)
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/javamelody/javamelody.svg)](http://isitmaintained.com/project/javamelody/javamelody "Percentage of issues still open")
-[![Build Status](https://travis-ci.com/javamelody/javamelody.svg?branch=master)](https://travis-ci.com/javamelody/javamelody) 
+[![build](https://github.com/javamelody/javamelody/actions/workflows/maven.yml/badge.svg)](https://github.com/javamelody/javamelody/actions/workflows/maven.yml)
 ![GitHub stars](https://img.shields.io/github/stars/javamelody/javamelody?style=social)
 ![Twitter Follow](https://img.shields.io/twitter/follow/java_melody?label=Follow&style=social)
