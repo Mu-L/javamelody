@@ -46,7 +46,7 @@ If you are adding a new file it should have a header like this:
 
 ```
 /*
- * Copyright 2008-2019 by Emeric Vernat
+ * Copyright 2008-2026 by Emeric Vernat
  *
  *     This file is part of Java Melody.
  *
