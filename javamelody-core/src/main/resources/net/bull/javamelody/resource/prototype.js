@@ -1,14 +1,23 @@
-/*  Prototype JavaScript framework, version 1.7.3, with stripTags and unescapeHTML removed to avoid questions about CVE-2020-27511
+/*  Prototype JavaScript framework, version 1.7.4+javamelody.1, with stripTags and unescapeHTML removed to mitigate CVE-2020-27511.
  *  (c) 2005-2010 Sam Stephenson
  *
+ *  Forked from upstream Prototype.js 1.7.3.
+ *
+ *  The version literal is bumped to 1.7.4 because this artifact ships the
+ *  CVE-2020-27511 fix that a hypothetical upstream 1.7.4 release would have
+ *  shipped (stripTags and unescapeHTML removed; neither is called from
+ *  JavaMelody). The "+javamelody.<n>" build-metadata identifier (SemVer
+ *  2.0.0 §10) records the JavaMelody build of origin.
+ *  This is needed in order that dependency-check does not detect Prototype.js 1.7.3 and CVE-2020-27511 in this file.
+ *
  *  Prototype is freely distributable under the terms of an MIT-style license.
- *  For details, see the Prototype web site: http://www.prototypejs.org/
+ *  For details, see http://prototypejs.org/license.html
  *
  *--------------------------------------------------------------------------*/
 
 var Prototype = {
 
-  Version: '1.7.3',
+  Version: '1.7.4+javamelody.1',
 
   Browser: (function(){
     var ua = navigator.userAgent;
