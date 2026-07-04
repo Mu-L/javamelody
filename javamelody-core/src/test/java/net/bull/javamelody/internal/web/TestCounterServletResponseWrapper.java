@@ -28,7 +28,7 @@ import net.bull.javamelody.Utils;
 import net.bull.javamelody.internal.web.TestCompressionServletResponseWrapper.HttpResponse;
 
 /**
- * Test unitaire des classes CounterServletResponseWrapper et CounterResponseStream.
+ * Test unitaire des classes CounterServletResponseWrapper, CounterResponseStream et CounterResponseWriter.
  * @author Emeric Vernat
  */
 class TestCounterServletResponseWrapper {
@@ -41,7 +41,7 @@ class TestCounterServletResponseWrapper {
 	/** Test.
 	 * @throws IOException e */
 	@Test
-	void testCounterServletResponseWrapper() throws IOException {
+	void testCounterServletResponseWrapperWithStream() throws IOException {
 		final CounterServletResponseWrapper wrapper = new CounterServletResponseWrapper(
 				new HttpResponse());
 		// stream est null pour l'instant
@@ -61,6 +61,26 @@ class TestCounterServletResponseWrapper {
 	/** Test.
 	 * @throws IOException e */
 	@Test
+	void testCounterServletResponseWrapperWithWriter() throws IOException {
+		final CounterServletResponseWrapper wrapper = new CounterServletResponseWrapper(
+				new HttpResponse());
+		// stream est null pour l'instant
+		wrapper.reset();
+		wrapper.resetBuffer();
+
+		wrapper.createWriter();
+		wrapper.getWriter().write("12345678");
+		assertEquals(8, wrapper.getDataLength(), "dataLength");
+		wrapper.reset();
+		assertEquals(0, wrapper.getDataLength(), "dataLength with reset");
+		wrapper.getWriter().write("12345678");
+		wrapper.resetBuffer();
+		assertEquals(0, wrapper.getDataLength(), "dataLength with resetBuffer");
+	}
+
+	/** Test.
+	 * @throws IOException e */
+	@Test
 	void testCounterResponseStream() throws IOException {
 		final CounterResponseStream wrapper = new CounterResponseStream(new HttpResponse());
 		wrapper.write(1);
@@ -69,6 +89,19 @@ class TestCounterServletResponseWrapper {
 		assertEquals(16, wrapper.getDataLength(), "dataLength");
 		wrapper.isReady();
 		wrapper.setWriteListener(null);
+		wrapper.flush();
+		wrapper.close();
+	}
+
+	/** Test.
+	 * @throws IOException e */
+	@Test
+	void testCounterResponseWriter() throws IOException {
+		final CounterResponseWriter wrapper = new CounterResponseWriter(new HttpResponse());
+		wrapper.write(1);
+		wrapper.write("12345678");
+		wrapper.write("12345678", 1, 7);
+		assertEquals(16, wrapper.getDataLength(), "dataLength");
 		wrapper.flush();
 		wrapper.close();
 	}

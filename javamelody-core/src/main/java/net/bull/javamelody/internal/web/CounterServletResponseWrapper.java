@@ -18,6 +18,7 @@
 package net.bull.javamelody.internal.web;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,6 +29,8 @@ import jakarta.servlet.http.HttpServletResponse;
  * @author Emeric Vernat
  */
 public class CounterServletResponseWrapper extends FilterServletResponseWrapper {
+	private CounterResponseWriter writer;
+
 	/**
 	 * Constructeur qui crée un adapteur de HttpServletResponse wrappant la response spécifiée.
 	 * @param response HttpServletResponse
@@ -42,7 +45,11 @@ public class CounterServletResponseWrapper extends FilterServletResponseWrapper 
 	 * @return long
 	 */
 	public long getDataLength() {
-		return getCounterResponseStream() == null ? 0 : getCounterResponseStream().getDataLength();
+		if (writer == null) {
+			return getCounterResponseStream() == null ? 0 : getCounterResponseStream().getDataLength();
+		} else {
+			return writer.getDataLength();
+		}
 	}
 
 	/** {@inheritDoc} */
@@ -63,6 +70,9 @@ public class CounterServletResponseWrapper extends FilterServletResponseWrapper 
 		if (getCounterResponseStream() != null) {
 			getCounterResponseStream().reset();
 		}
+		if (writer != null) {
+			writer.reset();
+		}
 	}
 
 	private CounterResponseStream getCounterResponseStream() {
@@ -73,5 +83,12 @@ public class CounterServletResponseWrapper extends FilterServletResponseWrapper 
 	@Override
 	public ServletOutputStream createOutputStream() throws IOException {
 		return new CounterResponseStream(getHttpServletResponse());
+	}
+
+	/** {@inheritDoc} */
+	@Override
+	public PrintWriter createWriter() throws IOException {
+		this.writer = new CounterResponseWriter(getHttpServletResponse());
+		return writer;
 	}
 }

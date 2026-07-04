@@ -126,27 +126,31 @@ abstract class FilterServletResponseWrapper extends HttpServletResponseWrapper {
 						"getOutputStream() has already been called for this response");
 			}
 
-			try {
-				getOutputStream();
-			} catch (final IllegalStateException e) {
-				// issue 488: if a filter has called getWriter() before the MonitoringFilter, we can't call getOutputStream()
-				writer = super.getWriter();
-				return writer;
-			}
-
-			final ServletOutputStream outputStream = getOutputStream();
-			final String charEnc = getHttpServletResponse().getCharacterEncoding();
-			// HttpServletResponse.getCharacterEncoding() shouldn't return null
-			// according the spec, so feel free to remove that "if"
-			final PrintWriter result;
-			if (charEnc == null) {
-				result = new PrintWriter(outputStream);
-			} else {
-				result = new PrintWriter(new OutputStreamWriter(outputStream, charEnc));
-			}
-			writer = result;
+			writer =  createWriter();
+			assert writer != null;
 		}
 		return writer;
+	}
+
+	protected PrintWriter createWriter() throws IOException {
+		try {
+			getOutputStream();
+		} catch (final IllegalStateException e) {
+			// issue 488: if a filter has called getWriter() before the MonitoringFilter, we can't call getOutputStream()
+			return super.getWriter();
+		}
+
+		final ServletOutputStream outputStream = getOutputStream();
+		final String charEnc = getHttpServletResponse().getCharacterEncoding();
+		// HttpServletResponse.getCharacterEncoding() shouldn't return null
+		// according the spec, so feel free to remove that "if"
+		final PrintWriter result;
+		if (charEnc == null) {
+			result = new PrintWriter(outputStream);
+		} else {
+			result = new PrintWriter(new OutputStreamWriter(outputStream, charEnc));
+		}
+		return result;
 	}
 
 	/** {@inheritDoc} */
