@@ -34,6 +34,7 @@ import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Collections;
@@ -488,9 +489,10 @@ class TestMonitoringFilter {// NOPMD
 		final HttpServletResponse response2 = createNiceMock(HttpServletResponse.class);
 		expect(response2.getOutputStream())
 				.andReturn(new FilterServletOutputStream(new ByteArrayOutputStream())).anyTimes();
-		expect(response2.getCharacterEncoding()).andReturn(null).anyTimes();
+		expect(response2.getWriter())
+				.andReturn(new PrintWriter(new OutputStreamWriter(new ByteArrayOutputStream(), StandardCharsets.UTF_8))).anyTimes();
 		final CounterServletResponseWrapper wrappedResponse2 = new CounterServletResponseWrapper(
-				response);
+				response2);
 		replay(response2);
 		assertNotNull(wrappedResponse2.getWriter(), "getWriter");
 		assertNotNull(wrappedResponse2.getWriter(), "getWriter bis");
